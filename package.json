@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www",
+    "start:dev": "nodemon fileName.js"
   },
   "dependencies": {
     "blueimp-md5": "^2.19.0",
