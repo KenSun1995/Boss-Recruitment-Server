@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
 /**
  * register router
  */
-router.post('/register', (req, res) => {
+router.post('/api/register', (req, res) => {
   const {
     username, password, type, header, position, info, company, salary
   } = req.body;
@@ -38,7 +38,7 @@ router.post('/register', (req, res) => {
 /**
  * login router
  */
-router.post('/login', (req, res) => {
+router.post('/api/login', (req, res) => {
   const { username, password } = req.body;
   UserModel.findOne({ username, password: md5(password) }, filter, (error, user) => {
     if (error === null && user) {
@@ -54,7 +54,7 @@ router.post('/login', (req, res) => {
 /*
 *  get all chat info list of current user
 */
-router.get('/msglist', function (req, res) {
+router.get('/api/msglist', function (req, res) {
   // get userId from cookies
   const userId = req.cookies.userId
   // query and find all user document data
@@ -80,7 +80,7 @@ router.get('/msglist', function (req, res) {
 /*
    change msg to read already
 */
-router.post('/readmsg', function (req, res) {
+router.post('/api/readmsg', function (req, res) {
   // get from and to
   const from = req.body.from
   const to = req.cookies.userId
@@ -130,7 +130,7 @@ module.exports = router;
   ## desc: admin is an exist user by default
 */
 
-router.post('/update', (req, res) => {
+router.post('/api/update', (req, res) => {
   // get userId from request cookies
   const userId = req.cookies.userId;
   // if userId is null
@@ -155,7 +155,7 @@ router.post('/update', (req, res) => {
 /**
  * get user info (according to cookie)
  */
-router.get('/user', (req, res) => {
+router.get('/api/user', (req, res) => {
   const userId = req.cookies.userId;
   if (!userId) {
     return res.send({ code: 1, msg: 'please login firstly' })
@@ -168,7 +168,7 @@ router.get('/user', (req, res) => {
 /**
  * get user list (according to type)
  */
-router.get('/userlist', (req, res) => {
+router.get('/api/userlist', (req, res) => {
   const { type } = req.query;
   UserModel.find({ type }, filter, (error, users) => {
     res.send({ code: 0, data: users });
